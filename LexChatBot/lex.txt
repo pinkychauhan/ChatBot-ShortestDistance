@@ -1,0 +1,25 @@
+Step 1: Create service linked role:
+aws iam create-service-linked-role --aws-service-name lex.amazonaws.com
+
+Step 2: Add invoke lambda permission for Intent
+aws lambda add-permission \
+    --region us-east-1 \
+    --function-name ShortestDistanceRetriever \
+    --statement-id Lex-ReturnShortestDistanceBot \
+    --action lambda:InvokeFunction \
+    --principal lex.amazonaws.com \
+    --source-arn "arn:aws:lex:us-east-1:<<account ID>>:intent:ReturnShortestDistanceIntent:*"
+
+Step 2: Create intent
+aws lex-models put-intent \
+   --region us-east-1 \
+   --name ReturnShortestDistanceIntent \
+   --cli-input-json file://ReturnShortestDistanceIntent.json
+
+Step 3: Create bot
+aws lex-models put-bot \
+    --region us-east-1 \
+    --name ReturnShortestDistanceBot \
+    --cli-input-json file://ReturnShortestDistanceBot.json
+
+Step 5: Publish the intent and bot
