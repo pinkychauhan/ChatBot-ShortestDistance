@@ -10,13 +10,13 @@ aws lambda add-permission \
     --principal lex.amazonaws.com \
     --source-arn "arn:aws:lex:us-east-1:<<account ID>>:intent:ReturnShortestDistanceIntent:*"
 
-Step 2: Create intent
+Step 3: Create intent
 aws lex-models put-intent \
    --region us-east-1 \
    --name ReturnShortestDistanceIntent \
    --cli-input-json file://ReturnShortestDistanceIntent.json
 
-Step 3: Create bot
+Step 4: Create bot
 aws lex-models put-bot \
     --region us-east-1 \
     --name ReturnShortestDistanceBot \
